@@ -1,0 +1,76 @@
+============================================================
+HASIL TEXT PROCESSING
+============================================================
+
+1. DATA AWAL:
+   Saya sangat suka belajar Python programming language hari ini! Dia tidak pernah datang ke tempat itu karena terlalu jauh sekali. Mereka sedang makan bakso dan minum es teh di warung favorit. Apakah kamu sudah mengerjakan tugas PR yang diberikan guru kemarin? Cuaca hari ini sangat panas, tetapi saya tetap pergi ke kantor. Buku itu sangat bagus dan menarik untuk dibaca oleh semua orang. Dia berlari sangat cepat sekali sehingga tidak ada yang bisa mengejarnya. Kami akan pergi ke pantai minggu depan...
+
+2. SETELAH LOWERCASING:
+   saya sangat suka belajar python programming language hari ini! dia tidak pernah datang ke tempat itu karena terlalu jauh sekali. mereka sedang makan bakso dan minum es teh di warung favorit. apakah kamu sudah mengerjakan tugas pr yang diberikan guru kemarin? cuaca hari ini sangat panas, tetapi saya tetap pergi ke kantor. buku itu sangat bagus dan menarik untuk dibaca oleh semua orang. dia berlari sangat cepat sekali sehingga tidak ada yang bisa mengejarnya. kami akan pergi ke pantai minggu depan...
+
+3. SETELAH PUNCTUATION REMOVAL:
+   saya sangat suka belajar python programming language hari ini dia tidak pernah datang ke tempat itu karena terlalu jauh sekali mereka sedang makan bakso dan minum es teh di warung favorit apakah kamu sudah mengerjakan tugas pr yang diberikan guru kemarin cuaca hari ini sangat panas tetapi saya tetap pergi ke kantor buku itu sangat bagus dan menarik untuk dibaca oleh semua orang dia berlari sangat cepat sekali sehingga tidak ada yang bisa mengejarnya kami akan pergi ke pantai minggu depan bersama...
+
+4. TOKENS (100 pertama):
+   ['saya', 'sangat', 'suka', 'belajar', 'python', 'programming', 'language', 'hari', 'ini', 'dia', 'tidak', 'pernah', 'datang', 'ke', 'tempat', 'itu', 'karena', 'terlalu', 'jauh', 'sekali', 'mereka', 'sedang', 'makan', 'bakso', 'dan', 'minum', 'es', 'teh', 'di', 'warung', 'favorit', 'apakah', 'kamu', 'sudah', 'mengerjakan', 'tugas', 'pr', 'yang', 'diberikan', 'guru', 'kemarin', 'cuaca', 'hari', 'ini', 'sangat', 'panas', 'tetapi', 'saya', 'tetap', 'pergi', 'ke', 'kantor', 'buku', 'itu', 'sangat', 'bagus', 'dan', 'menarik', 'untuk', 'dibaca', 'oleh', 'semua', 'orang', 'dia', 'berlari', 'sangat', 'cepat', 'sekali', 'sehingga', 'tidak', 'ada', 'yang', 'bisa', 'mengejarnya', 'kami', 'akan', 'pergi', 'ke', 'pantai', 'minggu', 'depan', 'bersama', 'keluarga', 'besar', 'makanan', 'di', 'restoran', 'ini', 'enakenak', 'semua', 'terutama', 'sambalnya', 'pedas', 'jangan', 'pernah', 'menyerah', 'pada', 'impianmu', 'karena', 'usaha']
+
+5. TOKENS TANPA STOPWORD (100 pertama):
+   ['suka', 'belajar', 'python', 'programming', 'language', 'datang', 'tempat', 'jauh', 'makan', 'bakso', 'minum', 'es', 'teh', 'warung', 'favorit', 'mengerjakan', 'tugas', 'pr', 'diberikan', 'guru', 'cuaca', 'panas', 'tetap', 'pergi', 'kantor', 'buku', 'bagus', 'menarik', 'dibaca', 'semua', 'orang', 'berlari', 'cepat', 'ada', 'mengejarnya', 'pergi', 'pantai', 'minggu', 'depan', 'bersama', 'keluarga', 'besar', 'makanan', 'restoran', 'enakenak', 'semua', 'terutama', 'sambalnya', 'pedas', 'jangan', 'menyerah', 'impianmu', 'usaha', 'mengkhianati', 'hasil', 'seorang', 'programmer', 'handal', 'berpengalaman', 'kucing', 'tidur', 'sepanjang', 'atas', 'sofa', 'kesayangannya', 'mobil', 'ayah', 'mahal', 'mewah', 'fitur', 'canggih', 'suka', 'perilakunya', 'kasar', 'sopan', 'bertiga', 'pergi', 'bioskop', 'menonton', 'film', 'terbaru', 'hujan', 'turun', 'deras', 'sejak', 'sore', 'malam', 'memenangkan', 'perlombaan', 'lari', 'setelah', 'berlatih', 'keras', 'setiap', 'sekeluarga', 'berlibur', 'bali', 'satu', 'minggu', 'kue']
+
+6. HASIL STEMMING (100 pertama):
+   ['suka', 'belajar', 'python', 'programming', 'language', 'datang', 'tempat', 'jauh', 'mak', 'bakso', 'minum', 'es', 'teh', 'warung', 'favorit', 'erja', 'tugas', 'pr', 'beri', 'guru', 'cuaca', 'panas', 'tetap', 'perg', 'kantor', 'buku', 'bagus', 'arik', 'baca', 'mua', 'orang', 'lar', 'cepat', 'ada', 'ejar', 'perg', 'panta', 'minggu', 'dep', 'sama', 'luarga', 'besar', 'makan', 'restor', 'enakenak', 'mua', 'utama', 'sambal', 'das', 'jang', 'erah', 'impianmu', 'usaha', 'khianat', 'hasil', 'orang', 'programmer', 'handal', 'ngalam', 'kucing', 'tidur', 'panjang', 'atas', 'sofa', 'sayangan', 'mobil', 'ayah', 'mahal', 'wah', 'fitur', 'canggih', 'suka', 'ilaku', 'kasar', 'sop', 'tiga', 'perg', 'bioskop', 'onton', 'film', 'baru', 'huj', 'turun', 'deras', 'jak', 'sore', 'malam', 'enang', 'lomba', 'lar', 'sete', 'latih', 'ras', 'tiap', 'keluarga', 'libur', 'bal', 'satu', 'minggu', 'kue']
+
+7. HASIL LEMMATIZATION (100 pertama):
+   ['suka', 'belajar', 'python', 'program', 'language', 'datang', 'tempat', 'jauh', 'mak', 'bakso', 'minum', 'es', 'teh', 'warung', 'favorit', 'erja', 'tugas', 'pr', 'beri', 'guru', 'cuaca', 'panas', 'tetap', 'perg', 'kantor', 'buku', 'bagus', 'arik', 'baca', 'mua', 'orang', 'lar', 'cepat', 'ada', 'ejar', 'perg', 'panta', 'minggu', 'dep', 'sama', 'luarga', 'besar', 'makan', 'restor', 'enakenak', 'mua', 'utama', 'sambal', 'da', 'jang', 'erah', 'impianmu', 'usaha', 'khianat', 'hasil', 'orang', 'programmer', 'handal', 'ngalam', 'kucing', 'tidur', 'panjang', 'atas', 'sofa', 'sayangan', 'mobil', 'ayah', 'mahal', 'wah', 'fitur', 'canggih', 'suka', 'ilaku', 'kasar', 'sop', 'tiga', 'perg', 'bioskop', 'onton', 'film', 'baru', 'huj', 'turun', 'deras', 'jak', 'sore', 'malam', 'enang', 'lomba', 'lar', 'sete', 'latih', 'ra', 'tiap', 'keluarga', 'libur', 'bal', 'satu', 'minggu', 'kue']
+
+8. POS TAGGING (50 kata):
+   saya -> NN
+   sangat -> NN
+   suka -> NN
+   belajar -> NN
+   python -> NN
+   programming -> VBG
+   language -> NN
+   hari -> NN
+   ini -> JJ
+   dia -> NN
+   tidak -> NN
+   pernah -> NN
+   datang -> NN
+   ke -> VBD
+   tempat -> JJ
+   itu -> JJ
+   karena -> NN
+   terlalu -> NN
+   jauh -> NN
+   sekali -> NN
+   mereka -> NN
+   sedang -> NN
+   makan -> NN
+   bakso -> NN
+   dan -> NN
+   minum -> NN
+   es -> NN
+   teh -> NN
+   di -> NN
+   warung -> NN
+   favorit -> NN
+   apakah -> NN
+   kamu -> NN
+   sudah -> NN
+   mengerjakan -> NN
+   tugas -> NN
+   pr -> NN
+   yang -> NN
+   diberikan -> NN
+   guru -> NN
+   kemarin -> NN
+   cuaca -> NN
+   hari -> NN
+   ini -> NN
+   sangat -> NN
+   panas -> NN
+   tetapi -> NN
+   saya -> NN
+   tetap -> NN
+   pergi -> NN
