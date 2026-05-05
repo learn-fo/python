@@ -1,0 +1,120 @@
+/* ===== Layout ===== */
+body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 30px;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* ===== Judul ===== */
+h2 {
+    margin-bottom: 20px;
+}
+
+/* ===== Form ===== */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.search-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.search-form button {
+    padding: 10px 18px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-form button:hover {
+    background: #357abd;
+}
+
+/* ===== Info metode ===== */
+.method {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* ===== Tabel ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Header */
+th {
+    text-align: left;
+    padding: 12px;
+    background-color: #4a90e2;
+    color: white;
+}
+
+/* Isi */
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Zebra */
+tr:nth-child(even) {
+    background-color: #f7f9fc;
+}
+
+/* Hover */
+tr:hover {
+    background-color: #eaf3ff;
+}
+
+/* Skor */
+.score {
+    font-weight: bold;
+    color: #e67e22;
+}
+
+/* Top result */
+tr:first-child td {
+    background-color: #dff0ff;
+    font-weight: bold;
+}
+
+/* Empty */
+.empty {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+}
+
+{% if analysis %}
+    <div class="analysis-box">
+        <h3>Analisis Hasil Pencarian</h3>
+        <p>{{ analysis }}</p>
+    </div>
+{% endif %}
