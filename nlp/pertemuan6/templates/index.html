@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NLP Topic Modeling Dashboard</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+/* HEADER */
+.header {
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* LAYOUT */
+.container {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+/* TOPIC */
+.topic {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px 0;
+    transition: 0.2s;
+}
+
+.topic:hover {
+    background: #e3f2fd;
+    transform: translateX(5px);
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #3498db;
+    color: white;
+}
+
+td, th {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* SEARCH */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.search-box button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #2980b9;
+}
+
+/* RESULT */
+.result-item {
+    border: 1px solid #ddd;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.best-result {
+    border: 2px solid #2ecc71;
+    background: #ecfdf5;
+}
+
+/* DOC LIST */
+.doc-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>NLP Topic Modeling Dashboard</h1>
+    <p>Analisis Topik & Pencarian Berbasis Inferencing (LDA)</p>
+</div>
+
+<!-- DOKUMEN -->
+<div class="card" style="margin:20px;">
+    <h3>📄 Dokumen yang Dianalisis</h3>
+
+    {% for d in documents %}
+    <div class="doc-item">
+        <b>Doc {{loop.index}}</b> — {{d}}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="container">
+
+<!-- LEFT: TOPIK -->
+<div class="card">
+    <h3>📌 Daftar Topik</h3>
+
+    {% for t in topics %}
+    <div class="topic" onclick="loadTopic({{t.id}}, this)">
+        <b>Topik {{t.id+1}}</b>: {{t.name}}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- RIGHT: DETAIL -->
+<div class="card">
+    <h3 id="judul">📊 Detail Topik</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Kata</th>
+                <th>Skor</th>
+            </tr>
+        </thead>
+        <tbody id="topwords">
+            <tr><td colspan="2">Klik topik di kiri 👈</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- LEFT BOTTOM -->
+<div class="card">
+    <h3>☁️ Wordcloud</h3>
+    <img src="{{ url_for('static', filename='global_wc.png') }}" width="100%">
+</div>
+
+<!-- RIGHT BOTTOM -->
+<div class="card">
+    <h3>🔍 Pencarian (Inferencing)</h3>
+
+    <div class="search-box">
+        <input type="text" id="query" placeholder="Masukkan kata kunci...">
+        <button onclick="search()">Cari</button>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+</div>
+
+<script>
+
+// LOAD TOPIK
+function loadTopic(id, el){
+
+    document.querySelectorAll(".topic").forEach(t=>{
+        t.style.background=""
+    })
+    el.style.background="#bbdefb"
+
+    fetch("/topic/"+id)
+    .then(res=>res.json())
+    .then(data=>{
+
+        document.getElementById("judul").innerText = "📊 " + data.topic
+
+        let html=""
+        data.words.forEach(w=>{
+            html+=`<tr><td>${w.word}</td><td>${w.score}</td></tr>`
+        })
+
+        document.getElementById("topwords").innerHTML=html
+    })
+}
+
+// SEARCH
+function search(){
+
+    let q=document.getElementById("query").value
+
+    let fd=new FormData()
+    fd.append("query",q)
+
+    fetch("/search",{method:"POST",body:fd})
+    .then(res=>res.json())
+    .then(data=>{
+
+        let html="<h4>Hasil Pencarian</h4>"
+
+        data.documents.forEach((d,index)=>{
+
+            let text=d.doc
+
+            data.query_tokens.forEach(w=>{
+                let regex=new RegExp(`(${w})`,"gi")
+                text=text.replace(regex,"<mark>$1</mark>")
+            })
+
+            let best=index===0?"best-result":""
+            let bestLabel=index===0?"<b style='color:green'>[BEST]</b>":"" 
+
+            let topicHTML=""
+            d.reason.topics.forEach(t=>{
+                topicHTML+=`${t.name} (${t.score})<br>`
+            })
+
+            html+=`
+            <div class="result-item ${best}">
+                <b>Doc ${d.doc_id}</b> ${bestLabel}<br><br>
+
+                ${text}<br><br>
+
+                ✔ <b>Topik terkait:</b><br>
+                ${topicHTML}
+
+                ✔ <b>Kata cocok:</b> ${d.reason.matched_words.join(", ") || "-"}
+
+                <br><b>Skor:</b> ${d.score}
+            </div>`
+        })
+
+        document.getElementById("result").innerHTML=html
+    })
+}
+
+</script>
+
+</body>
+</html>
